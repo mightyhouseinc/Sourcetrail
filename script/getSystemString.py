@@ -6,6 +6,6 @@ import platform
 arch = platform.machine()
 system = platform.system()
 dist = (platform.linux_distribution(distname="unknown", full_distribution_name=0)[0])
-s = system + '-' + arch + '/' + dist
+s = f'{system}-{arch}/{dist}'
 print (s)
 

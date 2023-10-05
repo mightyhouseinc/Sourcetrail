@@ -7,7 +7,7 @@ def numberIn():
 
 
 def numberOut(num):
-	print(str(num), end="")
+	print(num, end="")
 
 
 def stringOut(str):
@@ -41,10 +41,8 @@ class Field(GameObject):
 
 	def __init__(self):
 		self._grid = []
-		for j in range(0, 3):
-			row = []
-			for i in range(0, 3):
-				row.append(Field.Token.TOKEN_NONE)
+		for _ in range(0, 3):
+			row = [Field.Token.TOKEN_NONE for _ in range(0, 3)]
 			self._grid.append(row)
 		self._left = 9
 
@@ -141,7 +139,7 @@ class Player(GameObject):
 		self.name = name
 
 
-	def turn(field):
+	def turn(self):
 		raise NotImplementedError
 
 
@@ -216,7 +214,7 @@ class ArtificialPlayer(Player):
 
 				turnValue = self._evaluate(field, token)
 				if turnValue == 0 and not field.isFull():
-					turnValue = -self._minMax(field, field.opponent(token), prefix + " ").value
+					turnValue = -self._minMax(field, field.opponent(token), f"{prefix} ").value
 
 				field.clearMove(move)
 
@@ -266,7 +264,7 @@ class TicTacToe:
 	def run(self):
 		self._field.show()
 		playerIndex = 0
-		for i in range(0, 9):
+		for _ in range(0, 9):
 			player = self._players[playerIndex]
 			self._field.makeMove(player.turn(self._field), player.token)
 			self._field.show()
